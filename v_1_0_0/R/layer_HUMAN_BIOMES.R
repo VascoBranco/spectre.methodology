@@ -13,10 +13,11 @@
 # Packages needed --------------------------------------------------------------
 library(terra)
 
-# Process ----------------------------------------------------------------------
-worldClim <- terra::rast("./worldClim_30s_lakes.tif")
+# Layers -----------------------------------------------------------------------
+worldClim <- terra::rast("./worldClim_30s_templates.tif")
+source_01 <- terra::rast("./anthropogenic_biomes.tif")
 
-source <- terra::rast("./layerConversion_input/anthropogenic_biomes.tif")
+# Process ----------------------------------------------------------------------
 
 reclass_matrix <- matrix(ncol = 2, c(
   11, 5, 12, 5, 21, 4, 22, 4, 23, 4, 24, 4, 25, 4, 26, 4, 31, 3, 32, 3, 33, 3,
@@ -26,7 +27,7 @@ reclass_matrix <- matrix(ncol = 2, c(
 # We'll save each intermediate step to disk as it's generally faster. Feel free
 # to do otherwise.
 
-human_biomes_01 <- terra::classify(source, reclass_matrix,
+human_biomes_01 <- terra::classify(source_01, reclass_matrix,
   filename = "./output/HUMAN_BIOMES_IM1.tif",
   datatype = "FLT4S",
   filetype = "GTiff",

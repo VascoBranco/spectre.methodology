@@ -20,9 +20,10 @@ library(red)
 library(doParallel)
 library(ClusterR)
 
-# Process ----------------------------------------------------------------------
-worldClim = terra::rast("worldClim_30s_lakes.tif")
+# Layers -----------------------------------------------------------------------
+worldClim = terra::rast("worldClim_30s_templates.tif")
 
+# Process ----------------------------------------------------------------------
 # Resample all segments --------------------------------------------------------
 f1 <- function(x) {
   sum(x == 0)
@@ -42,6 +43,7 @@ for (k in dir("./forestwatch/patches")) {
   # now let's go map segment by map segment and check if there's data. If there
   # isn't, lets skip it. If there is, we resample the map segment to our
   # standard.
+  
   if (forest_trend_01@ptr$range_min != forest_trend_01@ptr$range_max ||
     (forest_trend_01@ptr$range_min == 0 && forest_trend_01@ptr$range_max == 0)) {
     new_ext <- terra::ext(source_01)
@@ -63,8 +65,6 @@ for (k in dir("./forestwatch/patches")) {
 }
 
 # Merge
-
-
 
 # Resample all segments --------------------------------------------------------
 # These are the last steps after taking the patches produced above and putting

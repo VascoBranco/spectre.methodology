@@ -9,9 +9,11 @@
 # Packages needed --------------------------------------------------------------
 library(raster)
 
+# Layers -----------------------------------------------------------------------
+worldClim = terra::rast("./worldClim_30s_template.tif")
+source_01 = terra::rast("./grips_total_dens_m_km2.asc")
+
 # Process ----------------------------------------------------------------------
-worldClim = terra::rast("./worldClim_30s_lakes.tif")
-source_01 = terra::rast("./layerConversion_input/grip4_total_dens_m_km2.asc")
 crs(source_01) = crs(worldClim)
 
 road_density_01 = terra::resample(source_01, worldClim, method = "bilinear",

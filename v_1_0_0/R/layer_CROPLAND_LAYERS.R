@@ -11,12 +11,13 @@
 # Packages needed --------------------------------------------------------------
 library(terra)
 
+# Layers -----------------------------------------------------------------------
+worldClim <- terra::rast("./worldClim_30s_template.tif")
+source_01 <- terra::rast("./UnifiedCroplandLayer.tif")
+source_02 <- terra::rast("./IIASA Hybrid Cropland.tif")
+
 # Process ----------------------------------------------------------------------
-worldClim = terra::rast("./worldClim_30s_lakes.tif")
-
 # CROP_PERC_UNI ----------------------------------------------------------------
-source_01 <- terra::rast("./layerConversion_input/UnifiedCroplandLayer.tif")
-
 crop_perc_uni_01 <- terra::resample(source_01, worldClim,
   method = "bilinear",
   filename = "./output/CROP_PERC_UNI_IM1.tif",
@@ -34,11 +35,7 @@ crop_perc_uni_02 <- terra::mask(crop_perc_uni_01, worldClim,
   NAflag = -3.4e+38
 )
 
-
-
 # CROP_PERC_IASA ---------------------------------------------------------------
-source_02 <- terra::rast("./layerConversion_input/IIASA Hybrid Cropland.tif")
-
 crop_perc_uni_03 <- terra::resample(source_02, worldClim,
   method = "bilinear",
   filename = "./output/CROP_PERC_IASA.tif",

@@ -11,12 +11,14 @@
 # Packages needed --------------------------------------------------------------
 library(terra)
 
+# Layers -----------------------------------------------------------------------
+worldClim <- terra::rast("./worldClim_30s_template.tif")
+source_01 <- terra::rast("./GHS_POPULATION_2015_1KM.tif")
+source_02 <- terra::rast("./GHS_BUILT_2018.tif")
+
 # Process ----------------------------------------------------------------------
-worldClim <- terra::rast("./worldClim_30s_lakes.tif")
 
 # HUMAN_DENSITY ----------------------------------------------------------------
-source_01 <- terra::rast("./layerConversion_input/GHS_POPULATION_2015_1KM.tif")
-
 human_density_01 <- terra::project(source_01, worldClim,
   filename = "./output/HUMAN_DENSITY_IM1.tif",
   datatype = "FLT4S",
@@ -35,8 +37,6 @@ human_density_02 <- mask(human_density_01, worldClim,
 )
 
 # BUILT_AREA -------------------------------------------------------------------
-source_02 <- raster("./layerConversion_input/GHS_BUILT_2018.tif")
-
 human_density_01 <- terra::project(source_02, worldClim,
   filename = "./output/BUILT_AREA_IM1.tif",
   datatype = "FLT4S",

@@ -9,14 +9,12 @@
 # Packages needed --------------------------------------------------------------
 library(terra)
 
+# Layers -----------------------------------------------------------------------
+worldClim <- terra::rast("./worldClim_30s_template.tif")
+source_01 <- terra::rast("/wildareas-v3-2009-human-footprint.tif")
+
 # Process ----------------------------------------------------------------------
-worldClim <- terra::rast("worldClim_30s_lakes.tif")
-
-source_1 <- terra::rast("./layerConversion_input/Global_Human_Footprint_Wildlife Conservation Society.tif")
-source_1 <- terra::rast("/home/witch-king-of-angmar/Desktop/footprint/last_of_the_wild/wildareas-v3-2009-human-footprint.tif")
-
-# NEW VERS:
-footprint_perc_01 <- terra::project(source_1, worldClim,
+footprint_perc_01 <- terra::project(source_01, worldClim,
                                    filename = "./output/FOOTPRINT_PERC_IM1.tif",
                                    datatype = "FLT4S",
                                    filetype = "GTiff",

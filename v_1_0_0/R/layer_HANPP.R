@@ -12,16 +12,17 @@
 # Packages needed --------------------------------------------------------------
 library(terra)
 
+# Layers -----------------------------------------------------------------------
+worldClim <- terra::rast("./worldClim_30s_template.tif")
+source_01 <- terra::rast("./HANPP_carbon.tif")
+source_02 <- terra::rast("./HANPP_percentage.tif")
+
 # Process ----------------------------------------------------------------------
 # The original dataset comes with some scaling issues that we have to fix for
 # better data presentation. This includes our NA values not being classified as
 # such (they show up as -3.402823e+38).
 
-worldClim = terra::rast("worldClim_30s_lakes.tif")
-
 # NPPCARBON_GRAM ---------------------------------------------------------------
-source_01 <- terra::rast("./layerConversion_input/human appropriation of NPP carbon.tif")
-
 nppcarbon_gram_01 <- terra::classify(source_01 < 0, cbind(1, NA),
   filename = "./output/NPPCARBON_GRAM_IM1.tif",
   datatype = "FLT4S",
@@ -58,7 +59,6 @@ nppcarbon_gram_04 <- terra::mask(nppcarbon_gram_03, worldClim,
 )
 
 # NPPCARBON_PERC ---------------------------------------------------------------
-source_02 <- terra::rast("./layerConversion_input/human appropriation of NPP percentage.tif")
 
 nppcarbon_perc_01 <- terra::classify(source_02 < 0, cbind(1, NA),
   filename = "./output/NPPCARBON_PERC_IM1.tif",

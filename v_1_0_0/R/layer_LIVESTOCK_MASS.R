@@ -20,10 +20,11 @@
 # Packages needed --------------------------------------------------------------
 library(terra)
 
-# Process ----------------------------------------------------------------------
-worldClim = terra::rast("worldClim_30s_lakes.tif")
+# Layers -----------------------------------------------------------------------
+worldClim = terra::rast("worldClim_30s_template.tif")
+source_01 = terra::rast((dir("./all_livestock_maps", full.names = T)))
 
-source_01 = terra::rast((dir("livestock_data/GLW data/all_livestock_maps", full.names = T)))
+# Process ----------------------------------------------------------------------
 livestock_mass_01 = terra::classify(source_01, matrix(c(NA, 0), nrow = 1, ncol = 2, byrow = T))
 livestock_mass_01 = terra::crop(livestock_mass_01, terra::ext(-180, 180, -60, 90))
 # Average biomass values -------------------------------------------------------

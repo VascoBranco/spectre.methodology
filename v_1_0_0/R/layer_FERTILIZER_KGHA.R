@@ -9,11 +9,11 @@
 # Packages needed --------------------------------------------------------------
 library(terra)
 
+# Layers -----------------------------------------------------------------------
+worldClim <- terra::rast("./worldClim_30s_template.tif")
+source_01 <- terra::rast("./global_fertilizer_application.tif")
+
 # Process ----------------------------------------------------------------------
-worldClim <- terra::rast("./worldClim_30s_lakes.tif")
-
-source_01 <- terra::rast("./layerConversion_input/GlobalFertilizerApplication.tif")
-
 fertilizer_kgha <- terra::resample(source_01, worldClim,
   method = "bilinear",
   filename = "./output/FERTILIZER_KGHA.tif",

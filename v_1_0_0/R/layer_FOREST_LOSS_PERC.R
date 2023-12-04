@@ -14,10 +14,12 @@
 # Packages needed --------------------------------------------------------------
 library(terra)
 
+# Layers -----------------------------------------------------------------------
+worldClim = terra::rast("./worldClim_30s_template.tif")
+source_01 = terra::rast("./JAXA_2007.tif")
+source_02 = terra::rast("./JAXA_2017.tif")
+
 # Process ----------------------------------------------------------------------
-source_01 = terra::rast("./layerConversion_input/JAXA_2007.tif")
-source_02 = terra::rast("./layerConversion_input/JAXA_2017.tif")
-worldClim = terra::rast("./worldClim_30s_lakes.tif")
 JAXA_matrix = matrix(c(200, NA, 255, NA), nrow = 2, ncol = 2, byrow = T)
 
 forest_loss_perc_01 = terra::classify(source_01, JAXA_matrix,

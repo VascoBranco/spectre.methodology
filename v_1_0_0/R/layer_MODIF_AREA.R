@@ -10,11 +10,11 @@
 # Packages needed --------------------------------------------------------------
 library(raster)
 
+# Layers -----------------------------------------------------------------------
+worldClim <- terra::rast("./worldClim_30s_template.tif")
+source_01 <- terra::rast("./global_human_modifications.tif")
+
 # Process ----------------------------------------------------------------------
-source_01 <- terra::rast("./layerConversion_input/global_human_modifications.tif")
-
-worldClim <- terra::rast("worldClim_30s_lakes.tif")
-
 modif_area_01 <- project(source_01, worldClim, method = "bilinear")
 
 terra::writeRaster(modif_area_01,

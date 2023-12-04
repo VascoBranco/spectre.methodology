@@ -14,15 +14,15 @@
 # Packages needed --------------------------------------------------------------
 library(terra)
 
-# Process ----------------------------------------------------------------------
-worldClim = terra::rast("./worldClim_30s_lakes.tif")
-
+# Layers -----------------------------------------------------------------------
+worldClim = terra::rast("./worldClim_30s_template.tif")
 source_stack = terra::rast(
-  c("./layerConversion_input/global_mining_areas_both.tif", 
-    "./layerConversion_input/global_mining_areas_critical.tif",
-    "./layerConversion_input/global_mining_areas_other.tif")
+  c("./global_mining_areas_both.tif", 
+    "./global_mining_areas_critical.tif",
+    "./global_mining_areas_other.tif")
 )
 
+# Process ----------------------------------------------------------------------
 # raster::calc can take a while to finish some times so you might want to
 # consider using parallel processing. You can also further simplify this merge,
 # this is just how we performed it.

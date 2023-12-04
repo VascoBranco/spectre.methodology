@@ -10,6 +10,11 @@
 # Packages needed --------------------------------------------------------------
 library(terra)
 
+# Layers -----------------------------------------------------------------------
+worldClim <- terra::rast("./worldClim_30s_template.tif")
+source_01 <- terra::rast("./low_impact.tif")
+source_02 <- terra::rast("./very_low_impact.tif")
+
 # Process ----------------------------------------------------------------------
 # The original dataset is a bit confusing. In short: 128's are NA values, 0's 
 # are positive classifications (e.g: the pixel is classified as low impact) and
@@ -18,11 +23,9 @@ library(terra)
 # not low impact  - > 3
 # low impact      - > 2
 # very low impact - > 1
-worldClim <- terra::rast("worldClim_30s_lakes.tif")
+
 
 # Low impact -------------------------------------------------------------------
-source_01 <- terra::rast("./layerConversion_input/Low_Impact.tif")
-
 change_matrix_01 <- matrix(c(0, 2, 100, 3, 128, 0), nrow = 3, ncol = 2, byrow = T)
 
 impact_area_01 <- terra::classify(source_01, change_matrix_01,
@@ -35,8 +38,6 @@ impact_area_01 <- terra::classify(source_01, change_matrix_01,
 
 
 # Very low impact --------------------------------------------------------------
-source_02 <- terra::rast("./layerConversion_input/Very_Low_Impact.tif")
-
 change_matrix_02 <- matrix(c(0, 1, 100, 0, 128, 0), nrow = 3, ncol = 2, byrow = T)
 
 impact_area_02 <- terra::classify(source_02, change_matrix_02,
