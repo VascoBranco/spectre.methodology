@@ -9,7 +9,7 @@ Check out SPECTRE at [LIBRe](https://biodiversityresearch.org/spectre/). There y
 
 | Version | Date |
 | :----------------: | :------: |
-| 1.0.0 (Initial release) | 03/12/2023 |
+| 1.0.0 (Initial release) | 05/12/2023 |
 
 ## Content table
 
